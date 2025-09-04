@@ -1,0 +1,47 @@
+{
+    "name": "collaborar/lingui",
+    "description": "Use Laravel translations on front-end with LinguiJS",
+    "keywords": [
+        "laravel",
+        "localization",
+        "typescript",
+        "linguijs",
+        "i18n",
+        "translations"
+    ],
+    "homepage": "https://github.com/collaborar/lingui",
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/collaborar/lingui/issues",
+        "source": "https://github.com/collaborar/lingui"
+    },
+    "authors": [
+        {
+            "name": "Paulo Ferreira",
+            "email": "paulo@collaborar.com"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "illuminate/console": "^12.26",
+        "illuminate/filesystem": "^12.26",
+        "illuminate/support": "^12.26"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lingui\\": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lingui\\LinguiServiceProvider"
+            ]
+        }
+    }
+}
