@@ -40,7 +40,7 @@ class MakeJson extends Command
     {
         $this->files->ensureDirectoryExists($this->dest());
 
-        $locales = Lang::locales();
+        $locales = Lingui::locales();
 
         foreach ($locales as $locale) {
             $json = $this->makeJson($locale);
