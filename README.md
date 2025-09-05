@@ -1,6 +1,6 @@
 # Lingui
 
-Lingui bridges your Laravel translations between backend and frontend with zero friction. It automatically generates locale JSON files and exposes them through Inertia — so you can use translation functions in your frontend like you already do in backend.
+Lingui bridges your Laravel translations between backend and Inertia frontend with zero friction. It automatically generates locale JSON files and exposes them through Inertia — so you can use translation functions in your frontend like you already do in backend.
 
 ## Installation
 
