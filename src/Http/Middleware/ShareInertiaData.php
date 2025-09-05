@@ -3,8 +3,9 @@
 namespace Lingui\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
+use Lingui\Lingui;
 use Inertia\Inertia;
+use Illuminate\Http\Request;
 
 class ShareInertiaData
 {
@@ -17,13 +18,7 @@ class ShareInertiaData
      */
     public function handle(Request $request, Closure $next)
     {
-        $i18n = app('i18n');
-
-        Inertia::share([
-            'i18n' => [
-                'translation' => $i18n->translation(),
-            ],
-        ]);
+        Inertia::share(Lingui::inertiaProps());
 
         return $next($request);
     }

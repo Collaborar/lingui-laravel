@@ -13,13 +13,7 @@ class LinguiServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton('i18n', function ($app) {
-            $locale = $app->getLocale();
-
-            $i18n = new I18N(config('lingui.path', 'public/lang'), $locale);
-
-            return $i18n;
-        });
+        //
     }
 
     /**
@@ -27,14 +21,31 @@ class LinguiServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $kernel = $this->app->make(Kernel::class);
+        $this->bootInertia();
+        $this->registerConsoleCommands();
+    }
 
-        // $kernel->appendMiddlewareToGroup('web', LocaleSession::class);
-        // $kernel->appendToMiddlewarePriority(LocaleSession::class);
+    /**
+     * Boot any Inertia related services.
+     *
+     * @return void
+     */
+    protected function bootInertia(): void
+    {
+        $kernel = $this->app->make(Kernel::class);
 
         $kernel->appendMiddlewareToGroup('web', ShareInertiaData::class);
         $kernel->appendToMiddlewarePriority(ShareInertiaData::class);
+    }
 
-        // $this->configureRoutes();
+    protected function registerConsoleCommands(): void
+    {
+        if (! $this->app->runningInConsole()) {
+            return;
+        }
+
+        $this->commands([
+            Commands\MakeJson::class,
+        ]);
     }
 }
