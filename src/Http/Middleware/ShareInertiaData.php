@@ -3,16 +3,15 @@
 namespace Lingui\Http\Middleware;
 
 use Closure;
-use Lingui\Lingui;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
+use Lingui\Lingui;
 
 class ShareInertiaData
 {
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  callable  $next
      * @return \Illuminate\Http\Response
      */

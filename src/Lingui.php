@@ -8,8 +8,6 @@ class Lingui
 {
     /**
      * Get the inertia props for the application.
-     *
-     * @return array
      */
     public static function inertiaProps(): array
     {
@@ -18,22 +16,19 @@ class Lingui
                 'locale' => app()->getLocale(),
                 'locales' => self::locales(),
                 'translation' => self::translation(),
-            ]
+            ],
         ];
     }
 
     /**
      * Get the translation for a given locale.
-     *
-     * @param string|null $locale
-     * @return array
      */
     public static function translation(?string $locale = null): array
     {
         $files = app('files');
-        $file = join_paths(self::dir(), $locale ?? app()->getLocale() . '.json');
+        $file = join_paths(self::dir(), $locale ?? app()->getLocale().'.json');
 
-        if (!$files->exists($file)) {
+        if (! $files->exists($file)) {
             return [];
         }
 
@@ -42,7 +37,7 @@ class Lingui
         $error = json_last_error();
 
         if ($error !== JSON_ERROR_NONE) {
-            throw new \Exception('The required '.basename($file). ' file is not a valid JSON (error code '.$error.')');
+            throw new \Exception('The required '.basename($file).' file is not a valid JSON (error code '.$error.')');
         }
 
         return $decoded;
@@ -50,8 +45,6 @@ class Lingui
 
     /**
      * Get all locales available in the application.
-     *
-     * @return array
      */
     public static function locales(): array
     {
@@ -81,8 +74,6 @@ class Lingui
 
     /**
      * Retrieve the directory path for the JSON files.
-     *
-     * @return string
      */
     public static function dir(): string
     {

@@ -5,8 +5,9 @@ namespace Lingui\Commands;
 use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
-use Symfony\Component\Console\Attribute\AsCommand;
 use Lingui\Lingui;
+use Symfony\Component\Console\Attribute\AsCommand;
+
 use function Illuminate\Filesystem\join_paths;
 
 #[AsCommand('lingui:make-json')]
@@ -34,13 +35,12 @@ class MakeJson extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return int
      */
     public function handle(): int
     {
-        if (!$this->files->exists($this->langPath())) {
+        if (! $this->files->exists($this->langPath())) {
             $this->error('[Lingui] Lang directory not found. Please run `php artisan lang:publish` to publish the lang files.');
+
             return self::FAILURE;
         }
 
@@ -56,20 +56,18 @@ class MakeJson extends Command
         }
 
         $this->info('[Lingui] Made JSON files in '.$this->dest());
+
         return self::SUCCESS;
     }
 
     /**
      * Make the JSON file content.
-     *
-     * @param string $locale
-     * @return string
      */
     protected function makeJson(string $locale): string
     {
         $source = join_paths($this->langPath(), $locale);
         $fromPhps = $this->fromPhps($source);
-        $fromJson = $this->fromJson($source . ".json");
+        $fromJson = $this->fromJson($source.'.json');
         $json = array_merge($fromPhps, $fromJson);
 
         return json_encode($json, JSON_PRETTY_PRINT);
@@ -77,9 +75,6 @@ class MakeJson extends Command
 
     /**
      * Get the PHP strings from the path.
-     *
-     * @param string $path
-     * @return array
      */
     protected function fromPhps(string $path): array
     {
@@ -87,6 +82,7 @@ class MakeJson extends Command
             ->mapWithKeys(function (string $file) {
                 $key = basename($file, '.php');
                 $value = require $file;
+
                 return [$key => is_array($value) ? $value : []];
             })
             ->toArray();
@@ -94,13 +90,10 @@ class MakeJson extends Command
 
     /**
      * Get the JSON strings from the file.
-     *
-     * @param string $file
-     * @return array
      */
     protected function fromJson(string $file): array
     {
-        if (!$this->files->exists($file)) {
+        if (! $this->files->exists($file)) {
             return [];
         }
 
@@ -109,7 +102,7 @@ class MakeJson extends Command
         $error = json_last_error();
 
         if ($error !== JSON_ERROR_NONE) {
-            throw new Exception('The required '.basename($file). ' file is not a valid JSON (error code '.$error.')');
+            throw new Exception('The required '.basename($file).' file is not a valid JSON (error code '.$error.')');
         }
 
         return $decoded;
@@ -117,8 +110,6 @@ class MakeJson extends Command
 
     /**
      * Get the language path.
-     *
-     * @return string
      */
     protected function langPath(): string
     {
@@ -127,8 +118,6 @@ class MakeJson extends Command
 
     /**
      * Retrieve the destination path.
-     *
-     * @return string
      */
     protected function dest(): string
     {

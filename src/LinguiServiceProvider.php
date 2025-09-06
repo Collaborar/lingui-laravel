@@ -27,8 +27,6 @@ class LinguiServiceProvider extends ServiceProvider
 
     /**
      * Boot any Inertia related services.
-     *
-     * @return void
      */
     protected function bootInertia(): void
     {

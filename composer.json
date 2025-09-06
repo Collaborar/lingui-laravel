@@ -1,19 +1,20 @@
 {
-    "name": "collaborar/lingui",
+    "name": "collaborar/lingui-laravel",
+    "type": "library",
     "description": "Use Laravel translations on front-end with LinguiJS",
     "keywords": [
         "laravel",
         "localization",
         "typescript",
-        "linguijs",
+        "lingui",
         "i18n",
         "translations"
     ],
-    "homepage": "https://github.com/collaborar/lingui",
+    "homepage": "https://github.com/collaborar/lingui-laravel",
     "license": "MIT",
     "support": {
-        "issues": "https://github.com/collaborar/lingui/issues",
-        "source": "https://github.com/collaborar/lingui"
+        "issues": "https://github.com/collaborar/lingui-laravel/issues",
+        "source": "https://github.com/collaborar/lingui-laravel"
     },
     "authors": [
         {
@@ -27,6 +28,9 @@
         "illuminate/filesystem": "^12.26",
         "illuminate/support": "^12.26"
     },
+    "require-dev": {
+        "laravel/pint": "^1.24"
+    },
     "autoload": {
         "psr-4": {
             "Lingui\\": "src/"
@@ -34,8 +38,10 @@
     },
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "config": {
-        "sort-packages": true
+    "scripts": {
+        "format": [
+            "@php vendor/bin/pint"
+        ]
     },
     "extra": {
         "laravel": {
