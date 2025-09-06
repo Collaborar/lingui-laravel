@@ -28,7 +28,7 @@ class Lingui
         $files = app('files');
         $file = join_paths(self::dir(), $locale ?? app()->getLocale().'.json');
 
-        if (! $files->exists($file)) {
+        if (!$files->exists($file)) {
             return [];
         }
 
