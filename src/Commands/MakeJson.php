@@ -2,11 +2,12 @@
 
 namespace Lingui\Commands;
 
+use Exception;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 use Symfony\Component\Console\Attribute\AsCommand;
-use function Illuminate\Filesystem\join_paths;
 use Lingui\Lingui;
+use function Illuminate\Filesystem\join_paths;
 
 #[AsCommand('lingui:make-json')]
 class MakeJson extends Command
@@ -16,7 +17,7 @@ class MakeJson extends Command
      *
      * @var string
      */
-    protected $signature = 'lingui:make-json';
+    protected $signature = 'lingui:make-json {lang-path?}';
 
     /**
      * The console command description.
@@ -38,6 +39,11 @@ class MakeJson extends Command
      */
     public function handle(): int
     {
+        if (!$this->files->exists($this->langPath())) {
+            $this->error('[Lingui] Lang directory not found. Please run `php artisan lang:publish` to publish the lang files.');
+            return self::FAILURE;
+        }
+
         $this->files->ensureDirectoryExists($this->dest());
 
         $locales = Lingui::locales();
@@ -49,7 +55,7 @@ class MakeJson extends Command
             $this->files->put($dest, $json);
         }
 
-        info('[Lingui] Made JSON files in '.$this->dest());
+        $this->info('[Lingui] Made JSON files in '.$this->dest());
         return self::SUCCESS;
     }
 
@@ -61,7 +67,7 @@ class MakeJson extends Command
      */
     protected function makeJson(string $locale): string
     {
-        $source = join_paths(lang_path(), $locale);
+        $source = join_paths($this->langPath(), $locale);
         $fromPhps = $this->fromPhps($source);
         $fromJson = $this->fromJson($source . ".json");
         $json = array_merge($fromPhps, $fromJson);
@@ -103,10 +109,20 @@ class MakeJson extends Command
         $error = json_last_error();
 
         if ($error !== JSON_ERROR_NONE) {
-            throw new \Exception('The required '.basename($file). ' file is not a valid JSON (error code '.$error.')');
+            throw new Exception('The required '.basename($file). ' file is not a valid JSON (error code '.$error.')');
         }
 
         return $decoded;
+    }
+
+    /**
+     * Get the language path.
+     *
+     * @return string
+     */
+    protected function langPath(): string
+    {
+        return $this->argument('lang-path') ?? lang_path();
     }
 
     /**
