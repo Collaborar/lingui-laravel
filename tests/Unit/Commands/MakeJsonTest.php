@@ -2,8 +2,6 @@
 
 namespace Lingui\Tests;
 
-use Lingui\Tests\TestCase;
-
 class MakeJsonTest extends TestCase
 {
     protected function setUp(): void

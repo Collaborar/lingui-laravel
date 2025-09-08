@@ -29,7 +29,7 @@ abstract class TestCase extends Orchestra
     {
         parent::setUp();
 
-        $this->files = new Filesystem();
+        $this->files = new Filesystem;
     }
 
     protected function tearDown(): void
