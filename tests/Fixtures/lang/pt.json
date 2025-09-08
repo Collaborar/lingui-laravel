@@ -1,0 +1,4 @@
+{
+    "Hello :Name": "Olá :Name",
+    "This is a JSON string inside a JSON file and will be added only to pt.json": "Esta é uma string JSON dentro de um arquivo JSON e será adicionada apenas ao pt.json"
+}

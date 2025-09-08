@@ -29,19 +29,27 @@
         "illuminate/support": "^12.26"
     },
     "require-dev": {
-        "laravel/pint": "^1.24"
+        "laravel/pint": "^1.24",
+        "orchestra/testbench": "^10.6",
+        "phpunit/phpunit": "^12.3",
+        "mockery/mockery": "^1.6"
     },
     "autoload": {
         "psr-4": {
             "Lingui\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Lingui\\Tests\\": "tests/"
+        }
+    },
     "minimum-stability": "stable",
     "prefer-stable": true,
     "scripts": {
-        "format": [
-            "@php vendor/bin/pint"
-        ]
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "format": "@php vendor/bin/pint"
     },
     "extra": {
         "laravel": {
