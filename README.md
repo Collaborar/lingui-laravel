@@ -21,10 +21,10 @@ Then, update your application's `vite.config.js` file to watch for changes to yo
 import { lingui } from "@collaborar/vite-plugin-lingui";
 
 export default defineConfig({
-    plugins: [
-        lingui(),
-        // ...
-    ],
+  plugins: [
+    lingui(),
+    // ...
+  ],
 });
 ```
 You can read about all of the plugin's configuration options in the [documentation](https://github.com/Collaborar/vite-plugin-lingui).
@@ -52,13 +52,16 @@ You can check the data in your Shared Data, the structure is:
 
 ```js
 {
-    i18n: {
-        locale: 'en',
-        locales: ['en', 'pt'], // Available locales
-        translation {
-            // All your translation goes here...
-        }
+  i18n: {
+    locale: 'en',
+    locales: ['en', 'pt'], // Available locales
+    translation: {
+      auth: {
+        failed: 'These credentials do not match our records.',
+      }
+      // All your translation goes here...
     }
+  }
 }
 ```
 
