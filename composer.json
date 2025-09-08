@@ -1,7 +1,7 @@
 {
     "name": "collaborar/lingui-laravel",
     "type": "library",
-    "description": "Use Laravel translations on front-end with LinguiJS",
+    "description": "The Laravel+Inertia localization.",
     "keywords": [
         "laravel",
         "localization",
