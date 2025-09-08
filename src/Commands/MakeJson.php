@@ -18,7 +18,7 @@ class MakeJson extends Command
      *
      * @var string
      */
-    protected $signature = 'lingui:make-json {lang-path?}';
+    protected $signature = 'lingui:make-json {lang-path?} {--locale=*}';
 
     /**
      * The console command description.
@@ -39,23 +39,21 @@ class MakeJson extends Command
     public function handle(): int
     {
         if (! $this->files->exists($this->langPath())) {
-            $this->error('[Lingui] Lang directory not found. Please run `php artisan lang:publish` to publish the lang files.');
+            $this->error('Lang directory not found. Please run `php artisan lang:publish` to publish the lang files.');
 
             return self::FAILURE;
         }
 
         $this->files->ensureDirectoryExists($this->dest());
 
-        $locales = Lingui::locales();
-
-        foreach ($locales as $locale) {
+        foreach ($this->locales() as $locale) {
             $json = $this->makeJson($locale);
             $dest = join_paths($this->dest(), "{$locale}.json");
 
             $this->files->put($dest, $json);
         }
 
-        $this->info('[Lingui] Made JSON files in '.$this->dest());
+        $this->info('Translation files generated in '.$this->dest());
 
         return self::SUCCESS;
     }
@@ -106,6 +104,14 @@ class MakeJson extends Command
         }
 
         return $decoded;
+    }
+
+    /**
+     * Get the locales.
+     */
+    protected function locales(): array
+    {
+        return $this->option('locale') ?: Lingui::locales();
     }
 
     /**
