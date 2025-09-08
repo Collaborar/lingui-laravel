@@ -67,8 +67,8 @@ You can check the data in your Shared Data, the structure is:
 
 ## Requirements
 
-- PHP 8.1+
-- Laravel 12.26+
+- PHP 8.2+
+- Laravel 12+
 - Inertia.js
 
 ## License
